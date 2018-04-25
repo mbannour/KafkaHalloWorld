@@ -2,31 +2,40 @@ package com.dali.consumer
 
 import java.util.Collections
 
-import org.apache.kafka.clients.consumer.KafkaConsumer
-
+import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
+import java.util.Properties
 import scala.collection.JavaConverters._
 
 object KafkaConsumerApp {
 
   def main(args: Array[String]): Unit = {
 
-    import java.util.Properties
+    val properties = new Properties()
+    properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
+    properties.put(
+      ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+      "org.apache.kafka.common.serialization.StringDeserializer"
+    )
+    properties.put(
+      ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+      "org.apache.kafka.common.serialization.StringDeserializer"
+    )
+    properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test")
 
-    val props = new Properties()
-    props.put("bootstrap.servers", "localhost:9092")
-    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-    props.put("group.id", "test")
-
-    val consumer = new KafkaConsumer[String, String](props)
+    val consumer = new KafkaConsumer[String, String](properties)
 
     consumer.subscribe(Collections.singletonList("my-topic"))
-
-    while (true) {
-      val records = consumer.poll(100)
-      for (record <- records.asScala) {
-        println(record)
+    try {
+      while (true) {
+        val records = consumer.poll(100)
+        records.asScala.foreach { record =>
+          println(record)
+        }
       }
+    } catch {
+      case e: Exception => println(e.getMessage)
+    } finally {
+      consumer.close()
     }
   }
 }
