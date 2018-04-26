@@ -27,13 +27,10 @@ object KafkaConsumerApp extends App {
   try {
     while (true) {
       val records = consumer.poll(100)
-      records.asScala.foreach { record =>
-        println(record)
-      }
+      records.asScala.foreach(record => println(record))
     }
   } catch {
     case e: Exception => println(e.getMessage)
-  } finally {
-    consumer.close()
-  }
+  } finally consumer.close
+
 }

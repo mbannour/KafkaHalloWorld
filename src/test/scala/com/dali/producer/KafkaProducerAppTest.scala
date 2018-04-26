@@ -16,7 +16,7 @@ class KafkaProducerAppTest extends FlatSpec with Matchers {
 
   myTestKafkaProducer.producer = producer
 
-  myTestKafkaProducer.send()
+  myTestKafkaProducer.send
 
   val history = producer.history
 
