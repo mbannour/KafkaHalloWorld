@@ -4,9 +4,9 @@ This is a basic kafka project writen in Scala.
 Before you start running the project you should have Docker already installed or You have the Kafka installed locally.
 
 
-In the case of docker you can follow this steps :
+In the case of installed docker just you follow this steps :
 
-1.Open a new Terminal and run the command:
+1. Open a new Terminal and run the command:
 
 ```
 docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 -p 9581-9585:9581-9585 -p 9092:9092 -e ADV_HOST=127.0.0.1  landoop/fast-data-dev:latest
@@ -48,3 +48,9 @@ ConsumerRecord(topic = my-topic, partition = 0, offset = 5466, CreateTime = 1524
 ConsumerRecord(topic = my-topic, partition = 0, offset = 5467, CreateTime = 1524656785406, serialized key size = 2, serialized value size = 13, headers = RecordHeaders(headers = [], isReadOnly = false), key = 18, value = MyMessage: 18)
 
 ```
+
+I already implemented Test for the Producer part, if you like to see the test result just run this command :
+
+```
+sbt test
+``` 
