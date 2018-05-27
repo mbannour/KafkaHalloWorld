@@ -18,7 +18,7 @@ docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 -p 9581-9585:95
 ```
 docker run --rm -it --net=host landoop/fast-data-dev bash
 
-kafka-topics --zookeeper localhost:2181  --describe --topic my-topic
+kafka-topics --create  --zookeeper localhost:2181 --replication-factor 1 --partitions 2  --topic  my-topic
 
 ```
 
