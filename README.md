@@ -1,4 +1,4 @@
-# KafkaHalloWorld
+# KafkaHalloWorld in Scala
 This is a basic kafka project writen in Scala.
 
 Before you start running the project you should have Docker already installed or You have the Kafka installed locally.
